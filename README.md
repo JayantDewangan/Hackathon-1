@@ -1,5 +1,5 @@
 Hackathon Project: Modern Landing Page 🚀
-- https://jayantdewangan.github.io/Hackathon-1/assets/images/ss.png
+- https://jayantdewangan.github.io/Hackathon-1/
 
 🌟 About
 A sleek, responsive landing page created for a 5-hour hackathon. Features modern UI design with animated elements and smooth scrolling navigation. Perfect for tech startups or SaaS product presentations.
