@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Growth Chronicles</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      /* Prevent scrolling */
+      html, body {
+        overflow-x: hidden;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      
+      /* Logo fix */
+      .logo img {
+        width: 30px;
+        height: 30px;
+        display: block; /* Fixes logo display issue */
+      }
+
+      /* Rest of your existing styles remain exactly the same */
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        padding: 2rem 1rem;
+        max-width: 1000px;
+        margin: auto;
+      }
+      .testimonial-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+      }
+      .testimonial-card:hover {
+        transform: translateY(-5px);
+      }
+      .newsletter p {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        text-align: center;
+      }
+      #newsletter-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+      }
+      #newsletter-form input {
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 0.95rem;
+      }
+      #newsletter-form button {
+        padding: 0.6rem 1.2rem;
+        background: #6c63ff;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.95rem;
+      }
+      #newsletter-form button:hover {
+        background: #554bdc;
+      }
+      .social-icons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.2rem;
+        margin-top: 1.5rem;
+      }
+      .social-icons a {
+        transition: transform 0.3s ease;
+      }
+      .social-icons a:hover {
+        transform: scale(1.2);
+      }
+      .social-icons a img {
+        background: #6c63ff;
+        padding: 10px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+        transition: all 0.3s ease;
+      }
+      .social-icons a:hover img {
+        background: #554bdc;
+        transform: scale(1.1);
+      }
+
+      /* *** New Styles for Charts & Responsiveness *** */
+      .chart-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+      }
+      .chart-buttons button {
+        padding: 0.5rem 1rem;
+        background: #6c63ff;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.3s ease;
+      }
+      .chart-buttons button:hover {
+        background: #554bdc;
+      }
+      .input-graph {
+        text-align: center;
+        margin-top: 2rem;
+      }
+      .input-graph input {
+        margin: 0.3rem;
+        padding: 0.5rem;
+        width: 100px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+      }
+      .input-graph button {
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        background: #27ae60;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .theme-toggle {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+      }
+      @media (max-width: 600px) {
+        .theme-toggle {
+          top: 8px;
+          right: 8px;
+        }
+        .chart-buttons,
+        .input-graph input {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+      /* Responsive fixes */
+      .nav-container {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+      }
+
+      .theme-toggle {
+        position: fixed;
+        right: 20px;
+        top: 20px;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 24px;
+        height: 18px;
+        cursor: pointer;
+        z-index: 1001;
+      }
+
+      .hamburger span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: #333;
+        transition: all 0.3s ease;
+      }
+
+      .mobile-nav {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .mobile-nav.active {
+        transform: translateY(0);
+      }
+
+      .mobile-nav a {
+        margin: 1rem 0;
+        font-size: 1.2rem;
+        color: #333;
+        text-decoration: none;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+
+        .hamburger {
+          display: flex;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr !important;
+        }
+
+        .hero-content h1 {
+          font-size: 2rem !important;
+        }
+
+        .hero-content p {
+          font-size: 1rem !important;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero-content h1 {
+          font-size: 1.8rem !important;
+        }
+
+        #newsletter-form {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        #newsletter-form input,
+        #newsletter-form button {
+          width: 100%;
+        }
+      }
+      /* Dark theme styles for charts and newsletter */
+      .dark-theme .features[style*="background: #fff"] {
+        background: #1e1e1e !important;
+      }
+
+      .dark-theme .features[style*="background: #f9f9ff"] {
+        background: #2d2d2d !important;
+      }
+
+      .dark-theme .testimonial-card {
+        background: #2d2d2d !important;
+        color: #fff !important;
+      }
+
+      .dark-theme #newsletter-form input {
+        background: #333;
+        color: #fff;
+        border-color: #555;
+      }
+
+      .dark-theme .chart-buttons button {
+        background: #6c63ff;
+        color: #fff;
+      }
+
+      .dark-theme .input-graph input {
+        background: #333;
+        color: #fff;
+        border-color: #555;
+      }
+
+      .dark-theme .input-graph button {
+        background: #27ae60;
+        color: #fff;
+      }
+      /* Footer text color for dark theme */
+      .dark-theme .footer {
+        color: #fff !important;
+      }
+
+      .dark-theme .footer a {
+        color: #ccc !important;
+      }
+
+      .dark-theme .footer a:hover {
+        color: #fff !important;
+      }
+      /* Typewriter animation */
+      .typewriter-text {
+        display: inline-block;
+        font-size: 2.8rem;
+        font-weight: 700;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 3px solid #6c63ff;
+        width: 0ch; /* initial */
+        animation: typing 2.8s steps(16) forwards, blink 0.7s step-end infinite;
+      }
+
+      @keyframes typing {
+        from {
+          width: 0ch;
+          transform: scale(1);
+        }
+        to {
+          width: 16ch; /* Match length of "Growth Chronicles" */
+          transform: scale(1.1);
+        }
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          border-color: transparent;
+        }
+        50% {
+          border-color: #6c63ff;
+        }
+      }
+
+      @media(width <=500px){
+            .abc{
+                font-size: 30px;
+            }
+}
+      
+    </style>
+  </head>
+
+  <body class="light-theme">
+    <!-- Loader -->
+    <div class="loader" id="loader"><div class="spinner"></div></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <img
+            src="https://img.icons8.com/emoji/48/star-emoji.png"
+            alt="logo"
+          /><span>Happy Sellers</span>
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="testimonials.html">Testimonials</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="hamburger"><span></span><span></span><span></span></div>
+        <div class="mobile-nav">
+          <a href="index.html">Home</a>
+          <a href="features.html">Features</a>
+          <a href="testimonials.html">Testimonials</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" title="Toggle theme">🌙</button>
+
+    <!-- Hero Section -->
+    <section class="hero fade-in" id="home">
+      <div class="hero-content">
+        <h1><span class="typewriter-text abc"></span></h1>
+        <p>See how Happy Sellers are growing their businesses every day!</p>
+        <a href="#testimonials" class="btn">See Reviews</a>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features fade-in" id="features">
+      <h2>Platform Highlights</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>Real-time Analytics</h3>
+          <p>Track performance metrics and make data-driven decisions.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Quick Onboarding</h3>
+          <p>Start selling within minutes with our guided setup.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Dedicated Support</h3>
+          <p>Our team is here 24/7 to help you succeed.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials fade-in" id="testimonials">
+      <h2 style="text-align: center">What Our Sellers Say</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <p>
+            "Happy Sellers transformed my business! It's smooth, fast, and
+            secure."
+          </p>
+          <p><strong>- Aashna</strong></p>
+        </div>
+        <div class="testimonial-card">
+          <p>
+            "I love the analytics dashboard. It helps me make informed decisions
+            daily."
+          </p>
+          <p><strong>- Ritesh</strong></p>
+        </div>
+        <div class="testimonial-card">
+          <p>
+            "The onboarding experience was so quick! I was up and running in no
+            time."
+          </p>
+          <p><strong>- Priya</strong></p>
+        </div>
+        <div class="testimonial-card">
+          <p>
+            "Customer support is top-notch. They always help me out instantly!"
+          </p>
+          <p><strong>- Raj</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats fade-in">
+      <div class="stats-grid">
+        <div>
+          <h3>10K+</h3>
+          <p>Active Sellers</p>
+        </div>
+        <div>
+          <h3>1M+</h3>
+          <p>Products Listed</p>
+        </div>
+        <div>
+          <h3>99.9%</h3>
+          <p>Payment Success Rate</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chart + User Graphs -->
+    <section
+      class="features fade-in"
+      style="padding: 3rem 1rem; background: #fff"
+    >
+      <div style="max-width: 900px; margin: auto; text-align: center">
+        <h2 style="margin-bottom: 1rem">Embodied Carbon Intensity</h2>
+
+        <div class="chart-buttons">
+          <button onclick="updateChartType('bar')">Bar</button>
+          <button onclick="updateChartType('line')">Line</button>
+          <button onclick="updateChartType('pie')">Pie</button>
+        </div>
+        <div style="max-width: 600px; margin: auto">
+          <canvas id="carbonChart" height="200"></canvas>
+        </div>
+
+        <div class="input-graph">
+          <h3>Add Your Own Data</h3>
+          <input type="text" id="labelInput" placeholder="Label" />
+          <input type="number" id="valueInput" placeholder="Value" />
+          <button onclick="addUserData()">Add Data</button>
+          <div style="max-width: 600px; margin: auto">
+            <canvas id="userChart" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section
+      class="features fade-in"
+      style="padding: 3rem 1rem; background: #f9f9ff"
+    >
+      <div style="max-width: 700px; margin: auto; text-align: center">
+        <h2>Stay Connected</h2>
+        <p>
+          Subscribe to our newsletter and follow us on social media to stay
+          updated!
+        </p>
+        <form id="newsletter-form">
+          <input type="email" placeholder="Enter your email" required />
+          <button type="submit">Subscribe</button>
+        </form>
+        <div class="social-icons">
+          <a href="#"
+            ><img
+              src="https://img.icons8.com/fluency-systems-filled/24/link.png"
+              alt="Website"
+          /></a>
+          <a href="#"
+            ><img
+              src="https://img.icons8.com/ios-filled/30/twitter.png"
+              alt="Twitter"
+          /></a>
+          <a href="#"
+            ><img
+              src="https://img.icons8.com/ios-filled/30/facebook-new.png"
+              alt="Facebook"
+          /></a>
+          <a href="#"
+            ><img
+              src="https://img.icons8.com/ios-filled/30/instagram-new.png"
+              alt="Instagram"
+          /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer fade-in" id="contact">
+      <p>&copy; 2025 Happy Sellers. All rights reserved.</p>
+    </footer>
+
+    <!-- Chart Scripts -->
+    <script>
+      const carbonCtx = document.getElementById("carbonChart").getContext("2d");
+      let carbonType = "bar";
+      const carbonData = {
+        labels: ["A", "B", "C", "D", "E"],
+        datasets: [
+          {
+            label: "kgCO₂e/m²",
+            data: [881, 430, 600, 223, 29],
+            backgroundColor: [
+              "#e74c3c",
+              "#f39c12",
+              "#2ecc71",
+              "#3498db",
+              "#9b59b6",
+            ],
+            borderRadius: 6,
+          },
+        ],
+      };
+      let carbonChart = new Chart(carbonCtx, {
+        type: carbonType,
+        data: carbonData,
+        options: {
+          responsive: true,
+          animation: { duration: 800, easing: "easeOutQuart" },
+          plugins: { legend: { position: "top" }, tooltip: { enabled: true } },
+          scales:
+            carbonType !== "pie"
+              ? {
+                  y: {
+                    beginAtZero: true,
+                    title: {
+                      display: true,
+                      text: "Embodied Carbon (kgCO₂e/m²)",
+                    },
+                  },
+                }
+              : {},
+        },
+      });
+
+      function updateChartType(type) {
+        carbonType = type;
+        carbonChart.destroy();
+        carbonChart = new Chart(carbonCtx, {
+          type: type,
+          data: carbonData,
+          options: {
+            responsive: true,
+            animation: { duration: 800, easing: "easeOutQuart" },
+            plugins: {
+              legend: { position: "top" },
+              tooltip: { enabled: true },
+            },
+            scales:
+              type !== "pie"
+                ? {
+                    y: {
+                      beginAtZero: true,
+                      title: {
+                        display: true,
+                        text: "Embodied Carbon (kgCO₂e/m²)",
+                      },
+                    },
+                  }
+                : {},
+          },
+        });
+      }
+
+      const userCtx = document.getElementById("userChart").getContext("2d");
+      const userData = {
+        labels: [],
+        datasets: [
+          {
+            label: "User Data",
+            data: [],
+            backgroundColor: "#6c63ff",
+            borderRadius: 6,
+          },
+        ],
+      };
+      const userChart = new Chart(userCtx, {
+        type: "bar",
+        data: userData,
+        options: {
+          responsive: true,
+          animation: { duration: 600, easing: "easeInOutQuart" },
+          plugins: { legend: { display: false }, tooltip: { enabled: true } },
+          scales: { y: { beginAtZero: true } },
+        },
+      });
+
+      function addUserData() {
+        const label = document.getElementById("labelInput").value.trim();
+        const value = parseFloat(document.getElementById("valueInput").value);
+        if (!label || isNaN(value)) return alert("Enter valid label and value");
+        userChart.data.labels.push(label);
+        userChart.data.datasets[0].data.push(value);
+        userChart.update();
+        document.getElementById("labelInput").value = "";
+        document.getElementById("valueInput").value = "";
+      }
+    </script>
+
+    <!-- Your JS -->
+    <script src="script.js"></script>
+
+    <script>
+      const text = "Growth Chronicles";
+      const span = document.querySelector(".typewriter-text");
+
+      let index = 0;
+      function typeWriter() {
+        if (index < text.length) {
+          span.textContent += text.charAt(index);
+          index++;
+          setTimeout(typeWriter, 150); // slower typing speed
+        }
+      }
+
+      window.addEventListener("DOMContentLoaded", typeWriter);
+    </script>
+  </body>
+</html>

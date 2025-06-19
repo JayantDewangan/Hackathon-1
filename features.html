@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Features - Happy Sellers</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<style>
+        .newsletter p {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        text-align: center;
+      }
+      #newsletter-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+      }
+      #newsletter-form input {
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 0.95rem;
+      }
+      #newsletter-form button {
+        padding: 0.6rem 1.2rem;
+        background-color: #6c63ff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.95rem;
+      }
+      #newsletter-form button:hover {
+        background-color: #554bdc;
+      }
+      .social-icons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.2rem;
+        margin-top: 1.5rem;
+      }
+      .social-icons a {
+        transition: transform 0.3s ease;
+      }
+      .social-icons a:hover {
+        transform: scale(1.2);
+      }
+      .social-icons a img {
+        background: #6c63ff;
+        padding: 10px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+        transition: all 0.3s ease;
+      }
+
+      .social-icons a:hover img {
+        background: #554bdc;
+        transform: scale(1.1);
+      }
+      /* Responsive fixes */
+.nav-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.theme-toggle {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #333;
+  transition: all 0.3s ease;
+}
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.mobile-nav.active {
+  transform: translateY(0);
+}
+
+.mobile-nav a {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  color: #333;
+  text-decoration: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  
+  .hamburger {
+    display: flex;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .hero-content h1 {
+    font-size: 2rem !important;
+  }
+  
+  .hero-content p {
+    font-size: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.8rem !important;
+  }
+  
+  #newsletter-form {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #newsletter-form input,
+  #newsletter-form button {
+    width: 100%;
+  }
+}
+
+</style>
+<body class="light-theme">
+
+  <!-- Loader -->
+  <div class="loader hidden" id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <img src="https://img.icons8.com/emoji/48/star-emoji.png" alt="logo" />
+        <span>Happy Sellers</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="features.html" class="active">Features</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="mobile-nav">
+        <a href="index.html">Home</a>
+        <a href="features.html" class="active">Features</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" title="Toggle theme">🌙</button>
+
+  <!-- Hero Section -->
+  <section class="hero fade-in">
+    <div class="hero-content">
+      <h1>Discover All the Tools You Need</h1>
+      <p>From analytics to automation — we empower sellers with everything.</p>
+    </div>
+  </section>
+
+  <!-- Main Features Section -->
+  <section class="features fade-in">
+    <h2>Main Features</h2>
+    <div class="features-grid">
+      <div class="feature-card"><h3>Dashboard</h3><p>Track your sales, visitors, and conversions in one place.</p></div>
+      <div class="feature-card"><h3>Analytics</h3><p>View in-depth reports on product performance and customers.</p></div>
+      <div class="feature-card"><h3>Automations</h3><p>Set up email flows, reminders, discounts, and more with ease.</p></div>
+      <div class="feature-card"><h3>Marketing Tools</h3><p>Run campaigns, integrate with social, and boost conversions.</p></div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="features fade-in">
+    <h2>How It Works</h2>
+    <div class="features-grid">
+      <div class="feature-card"><h3>Step 1: Sign Up</h3><p>Create your free account with just an email address.</p></div>
+      <div class="feature-card"><h3>Step 2: Set Up Store</h3><p>Upload your products, add branding, and customize layout.</p></div>
+      <div class="feature-card"><h3>Step 3: Launch</h3><p>Go live, share your link, and start earning right away.</p></div>
+    </div>
+  </section>
+
+  <!-- Bonus Features Section -->
+  <section class="features fade-in">
+    <h2>Bonus Tools</h2>
+    <div class="features-grid">
+      <div class="feature-card"><h3>Product Reviews</h3><p>Collect & display customer feedback to build trust.</p></div>
+      <div class="feature-card"><h3>Coupon Generator</h3><p>Create and manage discount codes in seconds.</p></div>
+      <div class="feature-card"><h3>Chat Widget</h3><p>Live chat with customers right from your dashboard.</p></div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="features fade-in">
+    <h2>Why Choose Us</h2>
+    <div class="features-grid">
+      <div class="feature-card"><h3>⚡ Fast Performance</h3><p>Lightning-fast website speed and dashboard.</p></div>
+      <div class="feature-card"><h3>🔒 Secure & Reliable</h3><p>Top-tier security and 99.99% uptime guarantee.</p></div>
+      <div class="feature-card"><h3>🛠 Easy Setup</h3><p>Launch your store in just a few clicks — no coding needed.</p></div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="hero fade-in" style="background: rgba(0,0,0,0.03);">
+    <div class="hero-content">
+      <h2>Ready to Grow Your Business?</h2>
+      <p>Join thousands of sellers using Happy Sellers daily.</p>
+      <a href="contact.html" class="btn" id="getStartedBtn" target="_blank">Get Started</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+<footer class="footer fade-in">
+  <div class="footer-container">
+    <p>&copy; 2025 Happy Sellers. All rights reserved.</p>
+
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="features.html">Features</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="contact.html">Contact</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+
+    <div class="newsletter">
+      <p>📬 Subscribe to our newsletter</p>
+      <form id="newsletter-form">
+        <input type="email" placeholder="Your email" required />
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+          <div class="social-icons">
+            <a href="index.html" title="Website" target="_blank">
+              <img
+                src="https://img.icons8.com/fluency-systems-filled/24/link.png"
+                alt="Website"
+                style="filter: grayscale(100%)"
+              />
+            </a>
+            <a href="https://x.com/" title="Twitter" target="_blank">
+              <img
+                src="https://img.icons8.com/ios-filled/30/twitter.png"
+                alt="Twitter"
+              />
+            </a>
+            <a href="https://www.facebook.com/" title="Facebook" target="_blank">
+              <img
+                src="https://img.icons8.com/ios-filled/30/facebook-new.png"
+                alt="Facebook"
+              />
+            </a>
+            <a href="https://www.instagram.com/accounts/emailsignup/" title="Instagram" target="_blank">
+              <img
+                src="https://img.icons8.com/ios-filled/30/instagram-new.png"
+                alt="Instagram"
+              />
+            </a>
+          </div>
+  </div>
+</footer>
+
+
+
+  <script src="script.js"></script>
+  <script>
+    const getStartedBtn = document.getElementById("getStartedBtn");
+    if (getStartedBtn) {
+      getStartedBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        const loader = document.getElementById("loader");
+        loader.classList.remove("hidden");
+        setTimeout(() => {
+          window.location.href = "contact.html";
+        }, 1500);
+      });
+    }
+  </script>
+</body>
+</html>

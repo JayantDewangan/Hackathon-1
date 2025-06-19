@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - Happy Sellers</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .confirmation-message {
+        text-align: center;
+        padding: 2rem;
+        display: none;
+        color: #2ecc71;
+        font-weight: 600;
+        font-size: 1.2rem;
+        background-color: #eafaf1;
+        border-radius: 12px;
+        margin-top: 1rem;
+      }
+      .loader.hidden {
+        display: none;
+      }
+      .feature-card input,
+      .feature-card textarea {
+        padding: 0.9rem;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        font-family: "Inter", sans-serif;
+        transition: border-color 0.3s, box-shadow 0.3s;
+      }
+      .feature-card input:focus,
+      .feature-card textarea:focus {
+        border-color: #6c63ff;
+        box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+        outline: none;
+      }
+      .feature-card .btn {
+        background-color: #6c63ff;
+        color: white;
+        padding: 0.9rem;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+      }
+      .feature-card .btn:hover {
+        background-color: #554bdc;
+      }
+      .footer {
+        background-color: #f9f9f9;
+        padding: 2.5rem 1rem;
+        font-family: "Inter", sans-serif;
+        border-top: 1px solid #eee;
+        margin-top: 2rem;
+      }
+      .footer-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      .footer p {
+        margin: 0;
+        color: #444;
+        font-size: 0.95rem;
+      }
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .footer-links a {
+        color: #6c63ff;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .footer-links a:hover {
+        color: #4c46c2;
+        text-decoration: underline;
+      }
+      .footer-extras {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        align-items: center;
+        flex-direction: row;
+      }
+      .newsletter p {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        text-align: center;
+      }
+      #newsletter-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+      }
+      #newsletter-form input {
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 0.95rem;
+      }
+      #newsletter-form button {
+        padding: 0.6rem 1.2rem;
+        background-color: #6c63ff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.95rem;
+      }
+      #newsletter-form button:hover {
+        background-color: #554bdc;
+      }
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+      .social-icons a {
+        transition: transform 0.3s ease;
+      }
+      .social-icons a:hover {
+        transform: scale(1.2);
+      }
+      .social-icons a img {
+        background: #6c63ff;
+        padding: 10px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+        transition: all 0.3s ease;
+      }
+
+      .social-icons a:hover img {
+        background: #554bdc;
+        transform: scale(1.1);
+      }
+      /* Make theme toggle visible and not overlapping with hamburger */
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 999;
+  background: #f0f0f0;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+/* Position hamburger slightly left of the theme toggle */
+.hamburger {
+  position: fixed;
+  top: 1rem;
+  right: 3.5rem; /* leave space for theme toggle */
+  z-index: 998;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 769px) {
+  .hamburger {
+    position: static; /* go back to default on desktop */
+    right: auto;
+    top: auto;
+  }
+
+  .theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 60px;
+  }
+}
+/* Responsive fixes */
+.nav-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.theme-toggle {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #333;
+  transition: all 0.3s ease;
+}
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.mobile-nav.active {
+  transform: translateY(0);
+}
+
+.mobile-nav a {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  color: #333;
+  text-decoration: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  
+  .hamburger {
+    display: flex;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .hero-content h1 {
+    font-size: 2rem !important;
+  }
+  
+  .hero-content p {
+    font-size: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.8rem !important;
+  }
+  
+  #newsletter-form {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #newsletter-form input,
+  #newsletter-form button {
+    width: 100%;
+  }
+}
+
+    </style>
+  </head>
+  <body class="light-theme">
+    <!-- Loader -->
+    <div class="loader hidden" id="loader">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <img
+            src="https://img.icons8.com/emoji/48/star-emoji.png"
+            alt="logo"
+          />
+          <span>Happy Sellers</span>
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="testimonials.html">Testimonials</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+        <div class="hamburger"><span></span><span></span><span></span></div>
+        <div class="mobile-nav">
+          <a href="index.html">Home</a>
+          <a href="features.html">Features</a>
+          <a href="testimonials.html">Testimonials</a>
+          <a href="contact.html" class="active">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" title="Toggle theme">🌙</button>
+
+    <!-- Contact Section -->
+    <section class="hero fade-in">
+      <div class="hero-content">
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you! Fill out the form below.</p>
+      </div>
+    </section>
+
+    <section class="features fade-in">
+      <div
+        class="features-grid"
+        style="
+          max-width: 1000px;
+          margin: auto;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 2rem;
+          justify-content: center;
+        "
+      >
+        <form
+          class="feature-card"
+          id="contactForm"
+          style="
+            flex: 1 1 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background: #fdfdfd;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+          "
+        >
+          <input type="text" placeholder="Your Name" required />
+          <input type="email" placeholder="Your Email" required />
+          <textarea placeholder="Your Message" rows="5" required></textarea>
+          <button type="submit" class="btn">Send Message</button>
+        </form>
+        <div
+          class="feature-card"
+          style="
+            flex: 1 1 300px;
+            background: #fdfdfd;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <div class="newsletter">
+            <p>📬 Subscribe to our newsletter</p>
+            <form id="newsletter-form">
+              <input type="email" placeholder="Your email" required />
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
+          <div class="social-icons">
+            <a href="index.html" title="Website" target="_blank">
+              <img
+                src="https://img.icons8.com/fluency-systems-filled/24/link.png"
+                alt="Website"
+                style="filter: grayscale(100%)"
+              />
+            </a>
+            <a href="https://x.com/" title="Twitter" target="_blank">
+              <img
+                src="https://img.icons8.com/ios-filled/30/twitter.png"
+                alt="Twitter"
+              />
+            </a>
+            <a href="https://www.facebook.com/" title="Facebook" target="_blank">
+              <img
+                src="https://img.icons8.com/ios-filled/30/facebook-new.png"
+                alt="Facebook"
+              />
+            </a>
+            <a href="https://www.instagram.com/accounts/emailsignup/" title="Instagram" target="_blank">
+              <img
+                src="https://img.icons8.com/ios-filled/30/instagram-new.png"
+                alt="Instagram"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div id="confirmation" class="confirmation-message">
+        Thank you! Your message has been sent. 💌
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer fade-in">
+      <div class="footer-container">
+        <p>&copy; 2025 Happy Sellers. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="features.html">Features</a>
+          <a href="testimonials.html">Testimonials</a>
+          <a href="contact.html">Contact</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const loader = document.getElementById("loader");
+          loader.classList.remove("hidden");
+
+          setTimeout(() => {
+            loader.classList.add("hidden");
+            this.style.display = "none";
+            document.getElementById("confirmation").style.display = "block";
+          }, 1500);
+        });
+
+      document
+        .getElementById("newsletter-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("Thank you for subscribing! 🎉");
+          this.reset();
+        });
+    </script>
+  </body>
+</html>

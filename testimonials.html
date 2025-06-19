@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testimonials - Happy Sellers</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9f9ff;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    
+    /* Dark Theme Styles */
+    body.dark-theme {
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+    
+    .dark-theme .navbar {
+      background-color: #1e1e1e;
+    }
+    
+    .dark-theme .nav-links a {
+      color: #f0f0f0;
+    }
+    
+    .dark-theme .testimonial-card {
+      background-color: #2d2d2d;
+      color: #f0f0f0;
+    }
+    
+    .dark-theme .testimonial-card p {
+      color: #ccc;
+    }
+    
+    .dark-theme .feature-card {
+      background-color: #252525;
+      color: #f0f0f0;
+    }
+    
+    .dark-theme footer {
+      background-color: #1a1a1a;
+    }
+    
+    .dark-theme .footer-links a {
+      color: #aaa;
+    }
+    
+    .dark-theme .footer-links a:hover {
+      color: #fff;
+    }
+    
+    .dark-theme .social-icons a {
+      background-color: #333;
+    }
+    
+    /* Navbar */
+    .navbar {
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background-color 0.3s;
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    
+    .logo img {
+      width: 30px;
+      height: 30px;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: #6c63ff;
+    }
+    
+    .nav-links .active {
+      color: #6c63ff;
+    }
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    
+    .hamburger span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: #333;
+      transition: all 0.3s;
+    }
+    
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      right: 20px;
+      top: 20px;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+    }
+    
+    .dark-theme .theme-toggle {
+      background: rgba(30, 30, 30, 0.8);
+      color: #f0f0f0;
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #6c63ff 0%, #4a42d6 100%);
+      color: white;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .btn {
+      display: inline-block;
+      background-color: white;
+      color: #6c63ff;
+      padding: 0.8rem 1.8rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: all 0.3s;
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Testimonials Section */
+    .testimonials-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .section-title h2 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+    
+    .dark-theme .section-title h2 {
+      color: #f0f0f0;
+    }
+    
+    .section-title p {
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .dark-theme .section-title p {
+      color: #aaa;
+    }
+    
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    
+    .testimonial-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .testimonial-card p {
+      margin-bottom: 1.5rem;
+      font-style: italic;
+      color: #555;
+    }
+    
+    .dark-theme .testimonial-card p {
+      color: #ccc;
+    }
+    
+    .testimonial-card .author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .author-info h4 {
+      color: #333;
+      margin-bottom: 0.2rem;
+    }
+    
+    .dark-theme .author-info h4 {
+      color: #f0f0f0;
+    }
+    
+    .author-info p {
+      font-style: normal;
+      font-size: 0.9rem;
+      color: #6c63ff;
+      margin: 0;
+    }
+    
+    /* Stats Section */
+    .stats {
+      background-color: #6c63ff;
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .stats-item h3 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stats-item p {
+      opacity: 0.9;
+    }
+    
+    /* Features Section */
+    .features {
+      padding: 4rem 2rem;
+      background-color: white;
+    }
+    
+    .dark-theme .features {
+      background-color: #1e1e1e;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .feature-card {
+      padding: 2rem;
+      border-radius: 10px;
+      background-color: #f9f9ff;
+      transition: transform 0.3s;
+    }
+    
+    .dark-theme .feature-card {
+      background-color: #252525;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .feature-card h3 {
+      color: #6c63ff;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+    
+    .feature-card p {
+      color: #555;
+    }
+    
+    .dark-theme .feature-card p {
+      color: #ccc;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      transition: background-color 0.3s;
+    }
+    
+    footer p {
+      margin-bottom: 1rem;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .social-icons a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background-color: #444;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s;
+    }
+    
+    .social-icons a:hover {
+      background-color: #6c63ff;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+      
+      .theme-toggle {
+        right: 15px;
+        top: 15px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .nav-container {
+        padding: 1rem;
+      }
+      
+      .hero {
+        padding: 3rem 1rem;
+      }
+      
+      .testimonials-grid, .features-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-links {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .theme-toggle {
+        right: 10px;
+        top: 10px;
+        width: 35px;
+        height: 35px;
+      }
+    }
+    
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    
+  </style>
+</head>
+<body class="light-theme">
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <img src="https://img.icons8.com/emoji/48/star-emoji.png" alt="logo">
+        <span>Happy Sellers</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="testimonials.html" class="active">Testimonials</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Theme Toggle Button -->
+  <button class="theme-toggle" title="Toggle theme">🌙</button>
+
+  <!-- Hero Section -->
+  <section class="hero fade-in">
+    <div class="hero-content">
+      <h1>Customer Testimonials</h1>
+      <p>See how Happy Sellers are growing their businesses every day!</p>
+      <a href="#testimonials" class="btn">See Reviews</a>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <div class="testimonials-container" id="testimonials">
+    <div class="section-title">
+      <h2>What Our Customers Say</h2>
+      <p>Don't just take our word for it - hear from our community of successful sellers</p>
+    </div>
+    
+    <div class="testimonials-grid">
+      <!-- Testimonial 1 -->
+      <div class="testimonial-card fade-in">
+        <p>"Happy Sellers transformed my small business completely. Within just 3 months of using their platform, my sales increased by 200%!"</p>
+        <div class="author">
+          <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah J." class="author-avatar">
+          <div class="author-info">
+            <h4>Sarah Johnson</h4>
+            <p>Owner, Handmade Crafts</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Testimonial 2 -->
+      <div class="testimonial-card fade-in">
+        <p>"The analytics dashboard is a game-changer. I can now make data-driven decisions that actually impact my bottom line."</p>
+        <div class="author">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael T." class="author-avatar">
+          <div class="author-info">
+            <h4>Michael Thompson</h4>
+            <p>Founder, Tech Gadgets</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Testimonial 3 -->
+      <div class="testimonial-card fade-in">
+        <p>"Customer support is outstanding. They helped me set up my store in under an hour when I was struggling with the technical aspects."</p>
+        <div class="author">
+          <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Priya K." class="author-avatar">
+          <div class="author-info">
+            <h4>Priya Kapoor</h4>
+            <p>Fashion Designer</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Testimonial 4 -->
+      <div class="testimonial-card fade-in">
+        <p>"The automation features saved me at least 10 hours per week. Now I can focus on growing my business instead of admin work."</p>
+        <div class="author">
+          <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David L." class="author-avatar">
+          <div class="author-info">
+            <h4>David Lee</h4>
+            <p>E-commerce Entrepreneur</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Testimonial 5 -->
+      <div class="testimonial-card fade-in">
+        <p>"As someone who's not tech-savvy, I was amazed at how easy it was to set up my online store. The guided onboarding is perfect!"</p>
+        <div class="author">
+          <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Maria G." class="author-avatar">
+          <div class="author-info">
+            <h4>Maria Gonzalez</h4>
+            <p>Artisan Baker</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Testimonial 6 -->
+      <div class="testimonial-card fade-in">
+        <p>"The marketing tools helped me reach new customers I never would have found on my own. My social media engagement tripled!"</p>
+        <div class="author">
+          <img src="https://randomuser.me/api/portraits/men/48.jpg" alt="James W." class="author-avatar">
+          <div class="author-info">
+            <h4>James Wilson</h4>
+            <p>Fitness Coach</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Section -->
+  <section class="stats fade-in">
+    <div class="stats-grid">
+      <div class="stats-item">
+        <h3>10K+</h3>
+        <p>Happy Sellers</p>
+      </div>
+      <div class="stats-item">
+        <h3>95%</h3>
+        <p>Customer Satisfaction</p>
+      </div>
+      <div class="stats-item">
+        <h3>24/7</h3>
+        <p>Support Availability</p>
+      </div>
+      <div class="stats-item">
+        <h3>3X</h3>
+        <p>Average Growth</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features fade-in">
+    <div class="section-title">
+      <h2>Why Choose Happy Sellers</h2>
+      <p>Our platform offers everything you need to succeed in e-commerce</p>
+    </div>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>Real-time Analytics</h3>
+        <p>Track performance metrics and make data-driven decisions with our comprehensive dashboard.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Quick Onboarding</h3>
+        <p>Start selling within minutes with our guided setup process - no technical skills required.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Dedicated Support</h3>
+        <p>Our expert team is available 24/7 to help you succeed with your online business.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="fade-in">
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="features.html">Features</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="contact.html">Contact</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+    
+    <div class="social-icons">
+      <a href="#"><img src="https://img.icons8.com/ios-filled/30/ffffff/facebook-new.png" alt="Facebook"></a>
+      <a href="#"><img src="https://img.icons8.com/ios-filled/30/ffffff/twitter.png" alt="Twitter"></a>
+      <a href="#"><img src="https://img.icons8.com/ios-filled/30/ffffff/instagram-new.png" alt="Instagram"></a>
+      <a href="#"><img src="https://img.icons8.com/ios-filled/30/ffffff/linkedin.png" alt="LinkedIn"></a>
+    </div>
+    
+    <p>© 2025 Happy Sellers. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+    
+    // Scroll animations
+    const fadeElements = document.querySelectorAll('.fade-in');
+    
+    const fadeInOnScroll = () => {
+      fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementTop < windowHeight - 100) {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', fadeInOnScroll);
+    window.addEventListener('load', fadeInOnScroll);
+    
+    // Theme toggle functionality
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.body;
+    
+    // Check for saved theme preference or use preferred color scheme
+    const currentTheme = localStorage.getItem('theme') || 
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    body.classList.add(currentTheme + '-theme');
+    
+    // Update button text based on current theme
+    if (currentTheme === 'dark') {
+      themeToggle.textContent = '☀️';
+    } else {
+      themeToggle.textContent = '🌙';
+    }
+    
+    // Theme toggle button click event
+    themeToggle.addEventListener('click', () => {
+      if (body.classList.contains('dark-theme')) {
+        body.classList.remove('dark-theme');
+        body.classList.add('light-theme');
+        themeToggle.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.classList.remove('light-theme');
+        body.classList.add('dark-theme');
+        themeToggle.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+  </script>
+</body>
+</html>
